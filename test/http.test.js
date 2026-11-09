@@ -3,6 +3,25 @@ const assert = require('node:assert/strict');
 const { once } = require('node:events');
 const { createApp } = require('../server');
 
+test('root route explains how to use the API', async () => {
+  const server = createApp().listen(0);
+  await once(server, 'listening');
+
+  try {
+    const response = await fetch(`http://127.0.0.1:${server.address().port}/`);
+    const body = await response.json();
+
+    assert.equal(response.status, 200);
+    assert.equal(body.success, true);
+    assert.equal(body.name, 'E-commerce REST API');
+    assert.equal(body.health.ready, '/api/health/ready');
+    assert.equal(body.routes.cart, '/api/cart');
+  } finally {
+    server.close();
+    await once(server, 'close');
+  }
+});
+
 test('liveness endpoint reports the process is running without a database connection', async () => {
   const server = createApp().listen(0);
   await once(server, 'listening');

@@ -88,6 +88,7 @@ All responses use JSON. IDs are UUID strings. Product and order collection endpo
 
 | Method | Route | Access | Description |
 |---|---|---|---|
+| `GET` | `/` | Public | API welcome response with health checks and route groups |
 | `POST` | `/api/auth/register` | Public | Register a customer (`name`, `email`, `password`) |
 | `POST` | `/api/auth/login` | Public | Log in (`email`, `password`); returns JWT |
 | `POST` | `/api/auth/verify-email` | Public, throttled | Verify email (`token`) |

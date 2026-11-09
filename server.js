@@ -109,6 +109,24 @@ function createApp() {
     status: Number(tokens.status(req, res)),
     responseTimeMs: Number(tokens['response-time'](req, res)),
   })));
+  app.get('/', (req, res) => {
+    res.status(200).json({
+      success: true,
+      name: 'E-commerce REST API',
+      message: 'The API is running. Use the documented API routes to access the service.',
+      documentation: 'https://github.com/aligit56/e-commerce-backend#readme',
+      health: {
+        live: '/api/health/live',
+        ready: '/api/health/ready',
+      },
+      routes: {
+        authentication: '/api/auth',
+        products: '/api/products',
+        cart: '/api/cart',
+        orders: '/api/orders',
+      },
+    });
+  });
   app.get('/api/health/live', (req, res) => {
     res.status(200).json({
       success: true,
